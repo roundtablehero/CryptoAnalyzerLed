@@ -1,4 +1,4 @@
-package com.javarush.kozlov;
+package com.javarush.kozlov.view;
 
 import java.util.Arrays;
 
