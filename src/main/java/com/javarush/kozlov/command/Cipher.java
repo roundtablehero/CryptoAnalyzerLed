@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class Cipher {
     private final char[] alphabet;
-    private static final Map<Character, Integer> map = new HashMap<>();
+    private final Map<Character, Integer> map;
 
-    public Cipher(){
+    public Cipher() {
         this.alphabet = Alphabet.getAlphabet();
-
-            for (int i = 0; i < alphabet.length; i++) {
-                map.put(alphabet[i], i);
-            }
+        this.map = new HashMap<>();
+        for (int i = 0; i < alphabet.length; i++) {
+            map.put(alphabet[i], i);
+        }
 
     }
 

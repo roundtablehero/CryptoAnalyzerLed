@@ -1,6 +1,8 @@
 package com.javarush.kozlov.view;
 
 import com.javarush.kozlov.command.Cipher;
+import com.javarush.kozlov.command.Decode;
+import com.javarush.kozlov.command.Encode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,27 +14,7 @@ import java.util.Scanner;
 
 public class ConsoleRunner {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final Cipher cipher = new Cipher();
 
-
-
-
-
-    private static String encrypt(String text, int key) { //<<< String to charArray
-        StringBuilder sb = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            sb.append(cipher.encryptChar(c, key));
-        }
-        return sb.toString();
-    }
-
-    private static String decrypt(String text, int key) { //<<< String to charArray
-        StringBuilder sb = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            sb.append(cipher.encryptChar(c, -key));
-        }
-        return sb.toString();
-    }
 
     private static String readFile(String filePath) {
         StringBuilder sb = new StringBuilder();
@@ -77,17 +59,17 @@ public class ConsoleRunner {
 
             switch (choice) {
                 case 1:
-                    int keyEncrypt = getKey();
-                    String textEncrypt = readFile("text/text.txt");
-                    String encrypted = encrypt(textEncrypt, keyEncrypt);
-                    writeFile("text/text_encrypted.txt", encrypted);
+                    int keyEncode = getKey();
+                    String textEncode = readFile("text/text.txt");
+                    String encoded = Encode.encode(textEncode, keyEncode);
+                    writeFile("text/text_encrypted.txt", encoded);
                     System.out.println("Encrypted text saved to text/text_encrypted.txt");
                     break;
                 case 2:
-                    int keyDecrypt = getKey();
-                    String textDecrypt = readFile("text/text_encrypted.txt");
-                    String decrypted = decrypt(textDecrypt, keyDecrypt);
-                    writeFile("text/text_decrypted.txt", decrypted);
+                    int keyDecode = getKey();
+                    String textDecode = readFile("text/text_encrypted.txt");
+                    String decoded = Decode.decode(textDecode, keyDecode);
+                    writeFile("text/text_decrypted.txt", decoded);
                     System.out.println("Decrypted text saved to text/text_decrypted.txt");
                     break;
                 case 3:
