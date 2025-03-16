@@ -1,4 +1,6 @@
-package com.javarush.kozlov;
+package com.javarush.kozlov.view;
+
+import com.javarush.kozlov.command.Cipher;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -6,39 +8,20 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-public class Main {
-    private static final char[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'я', '.', ',', '!', '?', ' '};
-    private static final Map<Character, Integer> map = new HashMap<>();
+public class ConsoleRunner {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final Cipher cipher = new Cipher();
 
 
-    static {
-        for (int i = 0; i < ALPHABET.length; i++) {
-            map.put(ALPHABET[i], i);
-        }
-    }
 
-    private static char encryptChar(char c, int key) {
-        if (map.containsKey(c)) {
-            int i = map.get(c);
-            int newIndex = (i + key) % ALPHABET.length;
-            if (newIndex < 0) {
-                newIndex += ALPHABET.length;
-            }
-            return ALPHABET[newIndex];
 
-        }
-        return c;
-    }
 
     private static String encrypt(String text, int key) { //<<< String to charArray
         StringBuilder sb = new StringBuilder();
         for (char c : text.toCharArray()) {
-            sb.append(encryptChar(c, key));
+            sb.append(cipher.encryptChar(c, key));
         }
         return sb.toString();
     }
@@ -46,7 +29,7 @@ public class Main {
     private static String decrypt(String text, int key) { //<<< String to charArray
         StringBuilder sb = new StringBuilder();
         for (char c : text.toCharArray()) {
-            sb.append(encryptChar(c, -key));
+            sb.append(cipher.encryptChar(c, -key));
         }
         return sb.toString();
     }
